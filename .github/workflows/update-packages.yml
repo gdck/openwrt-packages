@@ -1,6 +1,6 @@
-  name: Update packages
+name: Update packages
 
-  on:
+on:
   repository_dispatch:
   release:
     types: published
@@ -12,13 +12,12 @@
   watch:
     types: started
 
-    env:        cd ${{matrix.target}}
-
+env:
   TZ: Asia/Shanghai
-  
-   jobs:
-       build:
-      runs-on: ubuntu-latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     name: Update ${{matrix.target}}
@@ -30,7 +29,6 @@
     steps:
     - name: Checkout
       uses: actions/checkout@main
-        cd ${{matrix.target}}
 
     - name: Initialization environment
       env:
@@ -51,12 +49,12 @@
         rm -Rf *
         git rm --cache *
         $GITHUB_WORKSPACE/${{matrix.target}}.sh
+
     - name: Upload
       env: 
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       run: |
-        [ -e $GITHUB_WORKSPACE/LICENSE ] && cp $GITHUB_WORKSPACE/LICENSE $GITHUB_WORKSPACE/${{matrix.target}}        cd ${{matrix.target}}
-
+        [ -e $GITHUB_WORKSPACE/LICENSE ] && cp $GITHUB_WORKSPACE/LICENSE $GITHUB_WORKSPACE/${{matrix.target}}
         [ -e $GITHUB_WORKSPACE/README.md ] && cp $GITHUB_WORKSPACE/README.md $GITHUB_WORKSPACE/${{matrix.target}}
         cd $GITHUB_WORKSPACE/${{matrix.target}}
         git add .
