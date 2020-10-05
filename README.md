@@ -28,6 +28,6 @@
 ## 不要为了下载而Fork这个项目，而且你Fork了不修改是不能自动拉取源码并推送的
 `Actions页面报错是正常的，因为只有上游有更新时才能成功上传`
 
-## ~~pytbt~~
-[![点我打钱](https://latopay.com/w/lt-bar-20714.png)](https://ac59075b964b0715.link.6n6n.top/app/index.php?rootid=123&n=qrpay_free)
+# ~~pytbt~~
+#[![点我打钱](https://latopay.com/w/lt-bar-20714.png)](https://ac59075b964b0715.link.6n6n.top/app/index.php?rootid=123&n=qrpay_free)
 
