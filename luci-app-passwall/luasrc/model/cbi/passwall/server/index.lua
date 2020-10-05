@@ -34,14 +34,26 @@ e.width = "5%"
 e.rmempty = false
 
 e = t:option(DummyValue, "status", translate("Status"))
-e.template = "passwall/server/users_status"
-e.value = translate("Collecting data...")
+e.rawhtml = true
+e.cfgvalue = function(t, n)
+    return string.format('<font class="_users_status">%s</font>', translate("Collecting data..."))
+end
 
 e = t:option(DummyValue, "remarks", translate("Remarks"))
 e.width = "15%"
 
 ---- Type
 e = t:option(DummyValue, "type", translate("Type"))
+e.cfgvalue = function(t, n)
+    local v = Value.cfgvalue(t, n)
+    if v then
+        if v == "V2ray" then
+            local protocol = m:get(n, "protocol")
+            return v .. " -> " .. protocol
+        end
+        return v
+    end
+end
 
 e = t:option(DummyValue, "port", translate("Port"))
 
