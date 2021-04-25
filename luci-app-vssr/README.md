@@ -1,4 +1,3 @@
-
 <div align="center">
   <img src="https://raw.githubusercontent.com/jerrykuku/staff/master/Helloworld_title.png"  >
   <h1 align="center">
@@ -21,7 +20,7 @@
   </a>
   
   <a href="https://github.com/jerrykuku/luci-app-vssr/releases">
-    <img src="https://img.shields.io/badge/release-v1.20-blue.svg?">
+    <img src="https://img.shields.io/badge/release-v1.22-blue.svg?">
   </a>
   
   <a href="https://github.com/jerrykuku/luci-app-vssr/releases">
@@ -39,11 +38,9 @@
 目前Lean最新版本的openwrt 已经可以直接拉取源码到 package/lean 下直接进行勾选并编译。  
 
 
-### 更新日志 2020-12-06  v1.20
-- NEW：局域网访问控制增加列表内或列表外代理的选项。
-- NEW：现在所有的分流域名都可以自定义了，具体参见新的功能菜单 分流设置。
-- FIX：修复了在导入trojan链接时，不能导入密码的错误。
-- FIX：修复一些应用程序路径检测错误。
+### 更新日志 2021-03-22  v1.22-1
+- FIX: 修复Vless 链接无法导入的问题（由于目前链接样本依然不够，如果可能请在issues里向我提供更多的样本）。
+
 
 详情见[具体日志](./relnotes.txt)。 
 

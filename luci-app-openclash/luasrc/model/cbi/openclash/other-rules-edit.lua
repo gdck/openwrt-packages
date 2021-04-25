@@ -36,6 +36,10 @@ s = m:section(NamedSection, sid, "other_rules")
 s.anonymous = true
 s.addremove   = false
 
+o = s:option(Value, "Note", translate("Note"))
+o.default = "default"
+o.rmempty = false
+
 o = s:option(ListValue, "config", translate("Config File"))
 local e,a={}
 local groupnames,filename
@@ -54,7 +58,7 @@ for t,f in ipairs(fs.glob("/etc/openclash/config/*"))do
   end
 end
 
-o = s:option(Button, translate("Get Group Names")) 
+o = s:option(Button, translate("Get Group Names"))
 o.title = translate("Get Group Names")
 o.inputtitle = translate("Get Group Names")
 o.description = translate("Get Group Names After Select Config File")
@@ -130,6 +134,17 @@ end
 o:value("DIRECT")
 o:value("REJECT")
 
+o = s:option(ListValue, "Scholar", translate("Scholar"))
+o:depends("rule_name", "lhie1")
+o.rmempty = true
+for groupname in string.gmatch(groupnames, "([^'##\n']+)##") do
+  if groupname ~= nil and groupname ~= "" then
+    o:value(groupname)
+  end
+end
+o:value("DIRECT")
+o:value("REJECT")
+
 o = s:option(ListValue, "Microsoft", translate("Microsoft"))
 o:depends("rule_name", "lhie1")
 o.rmempty = true
@@ -142,6 +157,17 @@ o:value("DIRECT")
 o:value("REJECT")
 
 o = s:option(ListValue, "Netflix", translate("Netflix"))
+o:depends("rule_name", "lhie1")
+o.rmempty = true
+for groupname in string.gmatch(groupnames, "([^'##\n']+)##") do
+  if groupname ~= nil and groupname ~= "" then
+    o:value(groupname)
+  end
+end
+o:value("DIRECT")
+o:value("REJECT")
+
+o = s:option(ListValue, "Disney", translate("Disney"))
 o:depends("rule_name", "lhie1")
 o.rmempty = true
 for groupname in string.gmatch(groupnames, "([^'##\n']+)##") do
@@ -251,7 +277,7 @@ local t = {
 }
 a = m:section(Table, t)
 
-o = a:option(Button,"Commit")
+o = a:option(Button,"Commit", " ")
 o.inputtitle = translate("Commit Configurations")
 o.inputstyle = "apply"
 o.write = function()
@@ -259,7 +285,7 @@ o.write = function()
    --luci.http.redirect(m.redirect)
 end
 
-o = a:option(Button,"Back")
+o = a:option(Button,"Back", " ")
 o.inputtitle = translate("Back Configurations")
 o.inputstyle = "reset"
 o.write = function()

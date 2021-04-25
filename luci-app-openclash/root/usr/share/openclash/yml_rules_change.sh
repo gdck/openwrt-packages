@@ -65,15 +65,32 @@ yml_other_set()
    begin
    if $5 == 1 then
       Value['rules']=Value['rules'].to_a.insert(0,
-      'DOMAIN-KEYWORD,tracker,DIRECT',
-      'DOMAIN-KEYWORD,announce.php?passkey=,DIRECT',
-      'DOMAIN-KEYWORD,torrent,DIRECT',
-      'DOMAIN-KEYWORD,peer_id=,DIRECT',
-      'DOMAIN-KEYWORD,info_hash,DIRECT',
-      'DOMAIN-KEYWORD,get_peers,DIRECT',
-      'DOMAIN-KEYWORD,find_node,DIRECT',
-      'DOMAIN-KEYWORD,BitTorrent,DIRECT',
-      'DOMAIN-KEYWORD,announce_peer,DIRECT'
+      'DOMAIN-SUFFIX,awesome-hd.me,DIRECT',
+      'DOMAIN-SUFFIX,broadcasthe.net,DIRECT',
+      'DOMAIN-SUFFIX,chdbits.co,DIRECT',
+      'DOMAIN-SUFFIX,classix-unlimited.co.uk,DIRECT',
+      'DOMAIN-SUFFIX,empornium.me,DIRECT',
+      'DOMAIN-SUFFIX,gazellegames.net,DIRECT',
+      'DOMAIN-SUFFIX,hdchina.org,DIRECT',
+      'DOMAIN-SUFFIX,hdsky.me,DIRECT',
+      'DOMAIN-SUFFIX,icetorrent.org,DIRECT',
+      'DOMAIN-SUFFIX,jpopsuki.eu,DIRECT',
+      'DOMAIN-SUFFIX,icetorrent.org,DIRECT',
+      'DOMAIN-SUFFIX,keepfrds.com,DIRECT',
+      'DOMAIN-SUFFIX,madsrevolution.net,DIRECT',
+      'DOMAIN-SUFFIX,m-team.cc,DIRECT',
+      'DOMAIN-SUFFIX,nanyangpt.com,DIRECT',
+      'DOMAIN-SUFFIX,ncore.cc,DIRECT',
+      'DOMAIN-SUFFIX,open.cd,DIRECT',
+      'DOMAIN-SUFFIX,ourbits.club,DIRECT',
+      'DOMAIN-SUFFIX,passthepopcorn.me,DIRECT',
+      'DOMAIN-SUFFIX,privatehd.to,DIRECT',
+      'DOMAIN-SUFFIX,redacted.ch,DIRECT',
+      'DOMAIN-SUFFIX,springsunday.net,DIRECT',
+      'DOMAIN-SUFFIX,tjupt.org,DIRECT',
+      'DOMAIN-SUFFIX,totheglory.im,DIRECT',
+      'DOMAIN-KEYWORD,announce,DIRECT',
+      'DOMAIN-KEYWORD,torrent,DIRECT'
       )
       begin
       match_group=Value['rules'].grep(/(MATCH|FINAL)/)[0]
@@ -136,7 +153,9 @@ yml_other_rules_get()
    config_get "Proxy" "$section" "Proxy" ""
    config_get "Youtube" "$section" "Youtube" ""
    config_get "Apple" "$section" "Apple" ""
+   config_get "Scholar" "$section" "Scholar" ""
    config_get "Netflix" "$section" "Netflix" ""
+   config_get "Disney" "$section" "Disney" ""
    config_get "Spotify" "$section" "Spotify" ""
    config_get "Steam" "$section" "Steam" ""
    config_get "AdBlock" "$section" "AdBlock" ""
@@ -179,7 +198,9 @@ if [ "$2" != "0" ]; then
 	 || [ -z "$(grep -F "$Proxy" /tmp/Proxy_Group)" ]\
 	 || [ -z "$(grep -F "$Youtube" /tmp/Proxy_Group)" ]\
 	 || [ -z "$(grep -F "$Apple" /tmp/Proxy_Group)" ]\
+	 || [ -z "$(grep -F "$Scholar" /tmp/Proxy_Group)" ]\
 	 || [ -z "$(grep -F "$Netflix" /tmp/Proxy_Group)" ]\
+	 || [ -z "$(grep -F "$Disney" /tmp/Proxy_Group)" ]\
 	 || [ -z "$(grep -F "$Spotify" /tmp/Proxy_Group)" ]\
 	 || [ -z "$(grep -F "$Steam" /tmp/Proxy_Group)" ]\
 	 || [ -z "$(grep -F "$AdBlock" /tmp/Proxy_Group)" ]\
@@ -201,10 +222,10 @@ if [ "$2" != "0" ]; then
    else
        #删除原有的部分，防止冲突
        if [ -n "$(ruby_read "$4" "['script']")" ]; then
-          ruby_edit "$4" "['script'].clear"
+          ruby_edit "$4" ".delete('script')"
        fi
        if [ -n "$(ruby_read "$4" "['rules']")" ]; then
-          ruby_edit "$4" "['rules'].clear"
+          ruby_edit "$4" ".delete('rules')"
        fi
        if [ "$rule_name" = "lhie1" ]; then
        	    ruby -ryaml -E UTF-8 -e "
@@ -226,7 +247,9 @@ if [ "$2" != "0" ]; then
        	    .gsub(/,Proxy$/, ',$Proxy#d')
        	    .gsub(/,YouTube$/, ',$Youtube#d')
        	    .gsub(/,Apple$/, ',$Apple#d')
+       	    .gsub(/,Scholar$/, ',$Scholar#d')
        	    .gsub(/,Netflix$/, ',$Netflix#d')
+       	    .gsub(/,Disney$/, ',$Disney#d')
        	    .gsub(/,Spotify$/, ',$Spotify#d')
        	    .gsub(/,Steam$/, ',$Steam#d')
        	    .gsub(/,AdBlock$/, ',$AdBlock#d')
@@ -243,7 +266,9 @@ if [ "$2" != "0" ]; then
        	    .gsub!(/: \"Proxy\"/,': \"$Proxy#d\"')
        	    .gsub!(/: \"YouTube\"/,': \"$Youtube#d\"')
        	    .gsub!(/: \"Apple\"/,': \"$Apple#d\"')
+       	    .gsub!(/: \"Scholar\"/,': \"$Scholar#d\"')
        	    .gsub!(/: \"Netflix\"/,': \"$Netflix#d\"')
+       	    .gsub!(/: \"Disney\"/,': \"$Disney#d\"')
        	    .gsub!(/: \"Spotify\"/,': \"$Spotify#d\"')
        	    .gsub!(/: \"Steam\"/,': \"$Steam#d\"')
        	    .gsub!(/: \"AdBlock\"/,': \"$AdBlock#d\"')
