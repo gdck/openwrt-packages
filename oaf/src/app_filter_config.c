@@ -162,7 +162,7 @@ af_mac_info_t * find_af_mac(unsigned char *mac)
     index = hash_mac(mac);
     list_for_each_entry(node, &af_mac_list_table[index], hlist){
     	if (0 == memcmp(node->mac, mac, 6)){
-			AF_ERROR("match mac:"MAC_FMT"\n", MAC_ARRAY(node->mac));
+			AF_DEBUG("match mac:"MAC_FMT"\n", MAC_ARRAY(node->mac));
 			return node;
     	}
     }
@@ -196,8 +196,8 @@ int is_user_match_enable(void){
 	return total_mac > 0;
 }
 int mac_to_hex(u8 *mac, u8 *mac_hex){
-	u8 mac_tmp[MAC_ADDR_LEN];
-	int ret = 0;
+	u32 mac_tmp[MAC_ADDR_LEN];
+	int ret = 0, i = 0;
 	ret = sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x", 
 		(unsigned int *)&mac_tmp[0],
 		(unsigned int *)&mac_tmp[1],
@@ -207,7 +207,10 @@ int mac_to_hex(u8 *mac, u8 *mac_hex){
 		(unsigned int *)&mac_tmp[5]);
 	if (MAC_ADDR_LEN != ret)
 		return -1;
-	memcpy(mac_hex, mac_tmp, MAC_ADDR_LEN);
+	for (i = 0; i < MAC_ADDR_LEN; i++)
+	{
+		mac_hex[i] = mac_tmp[i];
+	}
 	return 0;
 }
 int af_set_mac_list(cJSON * data_obj)
@@ -406,7 +409,7 @@ int af_register_dev(void)
     if (IS_ERR_OR_NULL(dev)) {
         goto CLASS_OUT;
     }
-	printk("register char dev....ok\n");
+	AF_INFO("register char dev....ok\n");
 
     return 0;
 
@@ -417,7 +420,7 @@ CDEV_OUT:
 REGION_OUT:
     unregister_chrdev_region(g_af_dev.id, 1);
 	
-	printk("register char dev....fail\n");
+	AF_ERROR("register char dev....fail\n");
     return -EINVAL;
 }
 
@@ -428,6 +431,6 @@ void af_unregister_dev(void)
     class_destroy(g_af_dev.c);
     cdev_del(&g_af_dev.char_dev);
     unregister_chrdev_region(g_af_dev.id, 1);
-	printk("unregister char dev....ok\n");
+	AF_INFO("unregister char dev....ok\n");
 }
 

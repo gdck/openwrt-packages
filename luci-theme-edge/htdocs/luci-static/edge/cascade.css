@@ -1532,12 +1532,6 @@ ul.tabs,.tabmenu .tabs,#tabmenu .tabs,ul.cbi-tabmenu {
 	background-color: #fff;
 	padding-top: 1rem;
 }
-
-#packages{
-	margin-left: -2%;
-    width: 105%;
-}
-
 .cbi-tabmenu > li:hover {
 	background-color: rgba(246,178,181,0.2);
 }
@@ -2677,6 +2671,7 @@ input[name="nslookup"] {
 .node-main-login .main .main-right #maincontent {
 	height: 100%;
 	padding-top: 23vh;
+	padding-bottom:1rem;
 	margin-top: 0rem;
 	background-color: transparent !important;
 	text-align: center;
@@ -3967,11 +3962,6 @@ i input {
 	flex-basis: auto !important;
 }
 
-.cbi-map >.cbi-section .cbi-section-table,.container .cbi-tabmenu,.container #tabmenu,.cbi-map >.cbi-section .table {
-	margin-left: -2%;
-    width: 105%;
-}
-
 .admin-status-overview h2.content {
 	display: none;
 }
@@ -4071,8 +4061,11 @@ div[id^="cbi-unblockmusic"] .cbi-button {
 	padding: 0 2rem;
 }
 
-.cbi-section-table .tr>.td:last-child,#packages .tr>.td:last-child{
+#packages .tr>.td:last-child{
 	padding-right:3%;
+}
+.cbi-section-table .tr>.td:last-child{
+	padding-right:2rem;
 }
 
 .chromeframe {
